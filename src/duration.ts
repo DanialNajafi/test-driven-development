@@ -1,10 +1,9 @@
 export function formatDuration(seconds: number): string {
-  // Spezialfall: negatives Argument -> Exception
   if (seconds < 0) {
     throw new Error('Negative time is not valid!');
   }
 
-  // Rundung von Nachkommastellen
+  // Rundung auf die nächste Ganzzahl (Sekunden)
   seconds = Math.round(seconds);
 
   if (seconds === 0) {
@@ -13,20 +12,18 @@ export function formatDuration(seconds: number): string {
 
   const hours = Math.floor(seconds / 3600);
   seconds %= 3600;
-
   const minutes = Math.floor(seconds / 60);
-  const sec = seconds % 60;
+  const secs = seconds % 60;
 
-  const parts: string[] = [];
+  let result = '';
   if (hours > 0) {
-    parts.push(`${hours}h`);
+    result += `${hours}h`;
   }
   if (minutes > 0) {
-    parts.push(`${minutes}m`);
+    result += `${minutes}m`;
   }
-  if (sec > 0) {
-    parts.push(`${sec}s`);
+  if (secs > 0) {
+    result += `${secs}s`;
   }
-
-  return parts.join('');
+  return result;
 }
